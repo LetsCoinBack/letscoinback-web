@@ -57,7 +57,7 @@
             <div class="col-md-4">
                 <div class="row">
                     <img id="editPhoto" class="editPhoto" src="../../../../assets/images/edit.png" (click)="changePhoto(modalUrl)">
-                    <img id="userPhoto" class="userPhoto" [src]="formRegister.value.photo"/>
+                    <img id="userPhoto" class="userPhoto" [src]="formRegister.value.photo || './assets/images/faces/unnamed.jpg'"/>
                 </div>
             </div>
         </div>
