@@ -61,6 +61,15 @@ export class NavigationService {
                 { icon: 'i-Checked-User', name: 'Meus Dados', state: '/user/data', type: 'link' },
                 { icon: 'i-Add-User', name: 'Lista de Usuários', state: '/user/list', type: 'link', hasRole: ["ADMIN"]}
             ]
+        },{
+            name: 'Parceiros',
+            description: 'Informações de Parceiros.',
+            type: 'dropDown',
+            icon: 'i-Shop-2',
+            sub: [
+                { icon: 'i-Receipt', name: 'Listar Parceiros', state: '/partner', type: 'link' },
+                { icon: 'i-Add', name: 'Cadastrar Parceiro', state: '/partner/register', type: 'link', hasRole: ["ADMIN"] }
+            ]
         },
         {
             name: 'Doc',

@@ -61,6 +61,10 @@ export class RestService {
         userReadNotification: {
             url: "user/notification/read/##",
             method: "get"
+        },
+        registerPartner: {
+            url: "/partner/register",
+            method: "post"
         }
     }
     

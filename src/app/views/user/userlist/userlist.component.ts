@@ -16,6 +16,8 @@ export class UserListComponent implements OnInit{
     searchControl: FormControl = new FormControl();
     data;
     filtered;
+    viewMode = 'list';
+    page = 1;
   
     constructor(
       private restService: RestService,
@@ -70,9 +72,10 @@ export class UserListComponent implements OnInit{
     }
 
     confirm(content, id, authority) {
+      let newAuthority = authority == 'USER' ? 'ADMIN' : 'USER';
       this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true })
       .result.then((result) => {
-        this.changeAutority (id, authority);
+        this.changeAutority (id, newAuthority);
       }, (e) => {});
     }
 }

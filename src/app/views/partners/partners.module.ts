@@ -3,10 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { PartnersRoutingModule } from './partners-routing.module';
 import { PartnersComponent } from './partners/partners.component';
+import { RegisterPartnerComponent } from './register/register-partner.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TextMaskModule } from 'angular2-text-mask';
+import { SharedComponentsModule } from 'src/app/shared/components/shared.components.module';
 
 @NgModule({
   imports: [
@@ -16,8 +19,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgxPaginationModule,
     NgxDatatableModule,
     NgbModule,
-    PartnersRoutingModule
+    PartnersRoutingModule,
+    TextMaskModule,
+    SharedComponentsModule
   ],
-  declarations: [PartnersComponent]
+  declarations: [PartnersComponent, RegisterPartnerComponent]
 })
 export class PartnersModule { }

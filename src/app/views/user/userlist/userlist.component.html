@@ -1,72 +1,52 @@
-<div class="">
-    <div class="breadcrumb">
-        <h1>Usuários</h1>
-        <ul>
-            <li>Usuário</li>
-            <li>Todos</li>
-        </ul>
-    </div>
-    <div class="separator-breadcrumb border-top"></div>
+<div class="breadcrumb">
+    <h1>Usuários</h1>
+    <ul>
+        <li>Usuário</li>
+        <li>Todos</li>
+    </ul>
+</div>
+<div class="separator-breadcrumb border-top"></div>
 
-    <div class="row">
-      <div class="col-md-9">
-        <div class="col-md-4">
-          <div class="form-group">
-            <input id="email" placeholder="Pesquisar Usuário" [formControl]="searchControl" class="form-control form-control-rounded" type="text">
-          </div>
+<div class="row mb-4">
+  <div class="col-md-4">
+    <div class="form-group">
+      <input id="email" placeholder="Pesquisar Usuário" [formControl]="searchControl" class="form-control form-control-rounded" type="email">
+    </div>
+  </div>
+</div>
+
+<div class="col-md-7">
+  <div class="row" class="list-horizontal">
+    <div *ngFor="let item of filtered | paginate: { itemsPerPage: 5, currentPage: page }; let i = index" 
+      class="list-item col-md-12"
+      [@animate]="{value:'*',params:{delay: (i*100)+'ms', y:'50px'}}">
+      <div class="card o-hidden mb-4 d-flex flex-row">
+        <div class="list-thumb d-flex link">
+          <img class="fotoNovoLayout" [src]="item.photo || './assets/images/faces/unnamed.jpg'" alt="">
         </div>
-        <div class="col-md-12">
-            <div class=" o-hidden">
-                <ngx-datatable
-                style="height: 550px; box-shadow: none"
-                class="material fullscreen"
-                [columnMode]="'force'"
-                [headerHeight]="50"
-                [footerHeight]="50"
-                [rowHeight]="80"
-                [scrollbarV]="true"
-                [rows]="filtered">
-                  <ngx-datatable-column name="photo" [maxWidth]="120">
-                    <ng-template ngx-datatable-header-template>
-                      Usuário
-                    </ng-template>
-                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                          <img [src]="row.photo" alt="">
-                      </ng-template>
-                  </ngx-datatable-column>
-                  <ngx-datatable-column name="name" [maxWidth]="400">
-                    <ng-template ngx-datatable-header-template></ng-template>
-                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                      <label class="texto">{{row.name}}</label>
-                    </ng-template>
-                  </ngx-datatable-column>
-                  <ngx-datatable-column name="name" [maxWidth]="340">
-                    <ng-template ngx-datatable-header-template>Email</ng-template>
-                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                      <label class="texto">{{row.email}}</label>
-                    </ng-template>
-                  </ngx-datatable-column>                  
-                  <ngx-datatable-column name="name" [maxWidth]="100">
-                    <ng-template ngx-datatable-header-template>Perfil</ng-template>
-                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                      <label class="texto">{{row.authority}}</label>
-                    </ng-template>
-                  </ngx-datatable-column>
-                  <ngx-datatable-column name="redirect" [maxWidth]="230">
-                      <ng-template ngx-datatable-header-template>Ações</ng-template>
-                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <button *ngIf="row.authority.toUpperCase() == 'USER'" class="btn btn-outline-primary m-1" 
-                          (click)="confirm(modalConfirm, row.id, 'ADMIN')">Tornar Admin</button>
-                        <button *ngIf="row.authority.toUpperCase() == 'ADMIN'" class="btn btn-outline-primary m-1" 
-                          (click)="confirm(modalConfirm, row.id, 'USER')">Tornar User</button>
-                      </ng-template>
-                  </ngx-datatable-column>
-              </ngx-datatable>
-            </div>
+        <div class="flex-grow-1" [ngClass]="{'pl-2 d-flex': viewMode === 'list', 'd-bock': viewMode === 'grid'}">
+          <div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center"
+            [ngClass]="{'flex-lg-row': viewMode === 'list'}">
+            <a href="" class="w-40 w-sm-100">
+              <div class="item-title">{{item.name}}</div>
+            </a>
+            <p class="m-0 text-muted text-small w-15 w-sm-100 link">{{item.email}}</p>
+            <p class="m-0 text-muted text-small w-15 w-sm-100 link">{{item.authority.toUpperCase()}}</p>
+            <p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-actions">
+              <button class="btn btn-primary" (click)="confirm(modalConfirm, item.id, item.authority.toUpperCase())" [ngClass]="{'d-none': viewMode === 'grid'}">
+                Mudar Permissão
+              </button>
+            </p>
+          </div>
         </div>
       </div>
     </div>
-</div>  
+    <div class="col-md-12 mt-3" *ngIf="filtered?.length">
+      <pagination-controls (pageChange)="page = $event" previousLabel="" nextLabel=""></pagination-controls>
+    </div>
+  </div>
+</div>
+
 <ng-template #modalConfirm let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-title">Alterar Permissão</h4>

@@ -5,6 +5,8 @@ import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { AuthService } from '../../../shared/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+
 
 @Component({
     templateUrl: './partners.component.html',
@@ -13,6 +15,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class PartnersComponent implements OnInit{
     searchControl: FormControl = new FormControl();
+    viewMode: 'list' | 'grid' = 'list';
+    page = 1;
     products;
     defaultCashback;
     filteredProducts;
@@ -20,7 +24,8 @@ export class PartnersComponent implements OnInit{
     constructor(
       private restService: RestService,
       private auth: AuthService,
-      private toastr: ToastrService
+      private toastr: ToastrService,
+      private router: Router
     ) { }
   
     onNavigate(url){
@@ -29,6 +34,19 @@ export class PartnersComponent implements OnInit{
         return;
       }
       this.toastr.warning("Faça login para garantir seu bonus!",'Atenção!');
+    }
+
+    editPartner(partner) {
+      if (partner["cashback"] == null) {
+        delete partner["cashback"];
+      }
+      if (partner["userCashback"] == null) {
+        delete partner["userCashback"];
+      }
+      if (partner["position"] == null) {
+        delete partner["position"];
+      }
+      this.router.navigate(["/partner/register", partner]);
     }
 
     ngOnInit() {

@@ -1,62 +1,82 @@
-<div class="">
-    <div class="breadcrumb">
-        <h1>Lojas</h1>
-        <ul>
-            <li>Parceiros</li>
-            <li>Credenciados</li>
-        </ul>
-    </div>
-    <div class="separator-breadcrumb border-top"></div>
+<div class="breadcrumb">
+    <h1>Lojas</h1>
+    <ul>
+        <li>Parceiros</li>
+        <li>Credenciados</li>
+    </ul>
+</div>
+<div class="separator-breadcrumb border-top"></div>
 
-    <div class="row">
-      <div class="col-md-7">
-        <div class="col-md-4">
-          <div class="form-group">
-            <input id="email" placeholder="Pesquisar Loja" [formControl]="searchControl" class="form-control form-control-rounded" type="email">
-          </div>
+<div class="row mb-4">
+  <div class="col-md-1 col-sm-2">
+    <button class="btn btn-sm btn-rounded btn-outline-light btn-svg mr-2" [ngClass]="{active: viewMode === 'grid'}" (click)="viewMode = 'grid'">
+      <svg version="1.1" width="16px" id="grid" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        x="0px" y="0px" viewBox="0 0 369.946 369.946" style="enable-background:new 0 0 369.946 369.946;" xml:space="preserve">
+        <path d="M250.609,0h-11.934H131.271h-11.934H0v119.337v11.934v107.404v11.934v119.337h119.337h11.934
+            h107.404h11.934h119.337V250.609v-11.934V131.271v-11.934V0H250.609z M238.675,11.934v107.404H131.271V11.934H238.675z
+             M238.675,131.271v107.404H131.271V131.271H238.675z M11.934,11.934h107.404v107.404H11.934V11.934z M11.934,131.271h107.404
+            v107.404H11.934V131.271z M11.934,358.012V250.609h107.404v107.404H11.934z M131.271,358.012V250.609h107.404v107.404H131.271z
+             M358.012,358.012H250.609V250.609h107.404V358.012z M358.012,238.675H250.609V131.271h107.404V238.675z M250.609,119.337V11.934
+            h107.404v107.404H250.609z" />
+      </svg>
+    </button>
+    <button class="btn btn-sm btn-rounded btn-outline-light btn-svg" [ngClass]="{active: viewMode === 'list'}" (click)="viewMode = 'list'">
+      <svg version="1.1" id="list" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+        y="0px" width="16px" height="16px" viewBox="0 0 612 612" style="enable-background:new 0 0 612 612;" xml:space="preserve">
+        <path d="M0,97.92v24.48h612V97.92H0z M0,318.24h612v-24.48H0V318.24z M0,514.08h612V489.6H0V514.08z" />
+      </svg>
+    </button>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <input id="email" placeholder="Pesquisar Loja" [formControl]="searchControl" class="form-control form-control-rounded" type="email">
+    </div>
+  </div>
+</div>
+
+<!-- DATA LIST -->
+<div class="{{viewMode === 'list' ? 'col-md-8' : 'col-md-12'}}">
+  <div class="row" [ngClass]="{'list-horizontal': viewMode === 'list', 'list-grid': viewMode === 'grid'}">
+    <!-- SINGLE LIST ITEM -->
+    <div *ngFor="let item of filteredProducts | paginate: { itemsPerPage: (viewMode == 'list' ? 5 : 12), currentPage: page }; let i = index" 
+      class="list-item"
+      [ngClass]="{'col-md-12': viewMode === 'list', 'col-md-2': viewMode === 'grid', 'col-sm-4': viewMode === 'grid'}"
+      [@animate]="{value:'*',params:{delay: (i*100)+'ms', y:'50px'}}">
+      <div class="card o-hidden mb-4 d-flex" [ngClass]="{'flex-row': viewMode === 'list', 'flex-column': viewMode === 'grid'}">
+        <div (click)="onNavigate(item.redirect)" class="list-thumb d-flex link">
+          <!-- TUMBNAIL -->
+          <img class="fotoNovoLayout" [src]="item.photo" alt="">
         </div>
-        <div class="col-md-12">
-            <div class=" o-hidden">
-                <ngx-datatable
-                style="height: 550px; box-shadow: none"
-                class="material fullscreen"
-                [columnMode]="'force'"
-                [headerHeight]="50"
-                [footerHeight]="50"
-                [rowHeight]="80"
-                [scrollbarV]="true"
-                [rows]="filteredProducts">
-                  <ngx-datatable-column name="photo" [maxWidth]="120">
-                    <ng-template ngx-datatable-header-template>
-                      Loja
-                    </ng-template>
-                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                          <img class="imgEmp" [src]="row.photo" alt="">
-                      </ng-template>
-                  </ngx-datatable-column>
-                  <ngx-datatable-column name="name" [maxWidth]="400">
-                    <ng-template ngx-datatable-header-template></ng-template>
-                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                      <label class="rowName">{{row.name}}</label>
-                    </ng-template>
-                  </ngx-datatable-column>
-                  <ngx-datatable-column name="cashback" [maxWidth]="250">
-                    <ng-template ngx-datatable-header-template>
-                      Cashback
-                    </ng-template>
-                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <label class="rowName">Até <label class="destaque">{{row.userCashback || defaultCashback}}%</label> de LQX cashback</label>
-                      </ng-template>
-                  </ngx-datatable-column>
-                  <ngx-datatable-column name="redirect" [maxWidth]="120">
-                      <ng-template ngx-datatable-header-template></ng-template>
-                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-                        <button class="btn btn-outline-primary m-1" (click)="onNavigate(row.redirect)">Ver site</button>
-                      </ng-template>
-                  </ngx-datatable-column>
-              </ngx-datatable>
-            </div>
+        <div class="flex-grow-1" [ngClass]="{'pl-2 d-flex': viewMode === 'list', 'd-bock': viewMode === 'grid'}">
+          <div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center"
+            [ngClass]="{'flex-lg-row': viewMode === 'list'}">
+            <!-- OTHER DATA -->
+            <a (click)="onNavigate(item.redirect)" href="" class="w-40 w-sm-100">
+              <div class="item-title">{{item.name}}</div>
+            </a>
+            <p (click)="onNavigate(item.redirect)" class="m-0 text-muted text-small w-15 w-sm-100 link">{{item.type || 'Cashback'}}</p>
+            <p (click)="onNavigate(item.redirect)" class="m-0 text-muted text-small w-15 w-sm-100 link">
+              <div class="item-title">Até {{item.userCashback || defaultCashback}}% de LQX cashback</div>
+            <p (click)="onNavigate(item.redirect)" class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges link">
+              <span class="badge badge-primary">{{item.userCashback || defaultCashback}}%</span>
+            </p>
+            <p *ngIf="auth.hasRole('ADMIN')" class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-actions" >
+              <button class="btn btn-icon bg-transparent" [ngClass]="{'d-none': viewMode === 'grid'}" (click)='editPartner(item)'>
+                <i class="i-File-Edit text-16 text-primary"></i>Editar
+              </button>
+            </p>
+            <p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-actions">
+              <button class="btn btn-primary" (click)="onNavigate(item.redirect)" [ngClass]="{'d-none': viewMode === 'grid'}">
+                Visitar
+              </button>
+            </p>
+          </div>
         </div>
       </div>
     </div>
-</div>  
+    <!-- PAGINATION CONTROL -->
+    <div class="col-md-12 mt-3" *ngIf="products?.length">
+      <pagination-controls (pageChange)="page = $event" previousLabel="" nextLabel=""></pagination-controls>
+    </div>
+  </div>
+</div>
