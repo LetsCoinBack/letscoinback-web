@@ -53,6 +53,15 @@ export class NavigationService {
     
     defaultMenu: IMenuItem[] = [
         {
+            name: 'Carteira',
+            description: 'Minha Carteira.',
+            type: 'dropDown',
+            icon: 'i-Wallet',
+            sub: [
+                { icon: 'i-Money-Bag', name: 'Saldo', state: '/wallet/balance', type: 'link' }
+            ]
+        },
+        {
             name: 'Usuários',
             description: 'Informações de usuário.',
             type: 'dropDown',
@@ -61,7 +70,8 @@ export class NavigationService {
                 { icon: 'i-Checked-User', name: 'Meus Dados', state: '/user/data', type: 'link' },
                 { icon: 'i-Add-User', name: 'Lista de Usuários', state: '/user/list', type: 'link', hasRole: ["ADMIN"]}
             ]
-        },{
+        },
+        {
             name: 'Parceiros',
             description: 'Informações de Parceiros.',
             type: 'dropDown',

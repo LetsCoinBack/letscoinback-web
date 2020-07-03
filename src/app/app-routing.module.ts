@@ -17,6 +17,11 @@ const adminRoutes: Routes = [
       path: 'user',
       loadChildren: () => import('./views/user/user.module').then(m => m.UserModule),
       canActivate: [AuthGaurd]
+    },
+    {
+      path: 'wallet',
+      loadChildren: () => import('./views/wallet/wallet.module').then(m => m.WalletModule),
+      canActivate: [AuthGaurd]
     }
   ];
 

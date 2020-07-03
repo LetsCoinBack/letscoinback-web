@@ -65,6 +65,14 @@ export class RestService {
         registerPartner: {
             url: "/partner/register",
             method: "post"
+        },
+        getUserBalance: {
+            url: "/wallet/user/balance",
+            method: "get"
+        },
+        getUserHistory: {
+            url: "/wallet/user",
+            method: "get"
         }
     }
     
