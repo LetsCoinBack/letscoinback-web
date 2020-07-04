@@ -7,47 +7,67 @@
 </div>
 <div class="separator-breadcrumb border-top"></div>
 <div class="row">
-
-    <div class="col-lg-4 col-md-6 col-sm-6">
+    <div class="col-lg-3 col-md-4 col-sm-6">
         <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
             <div class="card-body text-center">
-                <i class="i-M   oney-Bag"></i>
+                <i class="i-Money-Bag"></i>
+                <div class="content">
+                    <p class="text-muted mt-2 mb-0">Entrada</p>
+                    <p class="text-primary text-24 line-height-1 mb-2">{{movimentationType["entrada"] | currency}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+            <div class="card-body text-center">
+                <i class="i-Back1"></i>
+                <div class="content">
+                    <p class="text-muted mt-2 mb-0">Saída</p>
+                    <p class="text-primary text-24 line-height-1 mb-2">{{movimentationType["saida"] | currency}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-4 col-sm-6">
+        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+            <div class="card-body text-center">
+                <i class="i-Bag-Coins"></i>
                 <div class="content">
                     <p class="text-muted mt-2 mb-0">Confirmado</p>
-                    <p class="text-primary text-24 line-height-1 mb-2">{{statusBalance.Confirmado}}</p>
+                    <p class="text-primary text-24 line-height-1 mb-2">{{statusBalance["confirmado"] | currency}}</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-lg-4 col-md-6 col-sm-6">
+    <div class="col-lg-2 col-md-4 col-sm-6">
         <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
             <div class="card-body text-center">
                 <i class="i-Money-2"></i>
                 <div class="content">
                     <p class="text-muted mt-2 mb-0">Pendente</p>
-                    <p class="text-primary text-24 line-height-1 mb-2">{{statusBalance.pendente}}</p>
+                    <p class="text-primary text-24 line-height-1 mb-2">{{statusBalance["pendente"] | currency}}</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-lg-4 col-md-6 col-sm-6">
+    <div class="col-lg-2 col-md-4 col-sm-6">
         <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
             <div class="card-body text-center">
                 <i class="i-Close"></i>
                 <div class="content">
                     <p class="text-muted mt-2 mb-0">Rejeitado</p>
-                    <p class="text-primary text-24 line-height-1 mb-2">{{statusBalance.rejeitado}}</p>
+                    <p class="text-primary text-24 line-height-1 mb-2">{{statusBalance["rejeitado"] | currency}}</p>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 <div class="row">
-    <div class="col-lg-4 col-sm-12">
+    <div class="col-lg-3 col-sm-12">
         <div class="card mb-4">
             <div class="card-body">
                 <div class="card-title">Entrada por Tipo</div>
@@ -55,5 +75,54 @@
             </div>
         </div>
     </div>
-</div>
+    <div class="col-md-9">
+        <div class="card  o-hidden">
+            <ngx-datatable
+            style="height: 500px; box-shadow: none"
+            class="material fullscreen"
+            [columnMode]="'force'"
+            [headerHeight]="50"
+            [footerHeight]="50"
+            [rowHeight]="45"
+            [scrollbarV]="true"
+            [rows]="userHistory">
+              <ngx-datatable-column name="date">
+                <ng-template ngx-datatable-header-template>
+                  Data
+                </ng-template>
+                <ng-template ngx-datatable-cell-template let-value="date" let-row="row">
+                    {{row.date | date: 'dd/MM/yyyy' }}
+                </ng-template>                
+              </ngx-datatable-column>
+              <ngx-datatable-column name="description">
+                <ng-template ngx-datatable-header-template>
+                  Descrição
+                </ng-template>           
+              </ngx-datatable-column>
+              <ngx-datatable-column name="transactionType">
+                <ng-template ngx-datatable-header-template>
+                  Transação
+                </ng-template>                
+              </ngx-datatable-column>
+              <ngx-datatable-column name="movimentationType">
+                <ng-template ngx-datatable-header-template>
+                  Movimentação
+                </ng-template>               
+              </ngx-datatable-column>
+              <ngx-datatable-column name="value">
+                <ng-template ngx-datatable-header-template>
+                  Valor
+                </ng-template>
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                    {{row.value | currency}}
+                </ng-template>                
+              </ngx-datatable-column>
+              <ngx-datatable-column name="status">
+                <ng-template ngx-datatable-header-template>
+                  Status
+                </ng-template>               
+              </ngx-datatable-column>
+          </ngx-datatable>
+        </div>
+    </div>
 </div>

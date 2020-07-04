@@ -1,0 +1,77 @@
+<div class="">
+    <div class="breadcrumb">
+        <h1>Parametros</h1>
+        <ul>
+            <li>Administrativo</li>
+            <li>Configuração</li>
+        </ul>
+    </div>
+    <div class="separator-breadcrumb border-top"></div>
+</div>
+
+<div class="card-title mb-3">Editar Parâmetro</div>
+
+<div *ngIf="formEdit.value['key']" class="card-body col-md-12">
+    <form [formGroup]="formEdit" (ngSubmit)="confirm(modalConfirm)">
+        <div class="row">
+            <div class="col-md-4 form-group mb-3">
+                <label for="firstName">Descrição</label>
+                <input type="text" class="form-control" formControlName="description" id="firstName">
+            </div>
+            <div class="col-md-2 form-group mb-3">
+                <label for="exampleInputEmail1">Valor</label>
+                <input type="email" class="form-control" formControlName="value" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="col-md-3 botao">
+                <button style="float: left;" class="btn btn-primary btn-rounded" >Salvar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="col-md-8">
+    <div class="card  o-hidden">
+        <ngx-datatable
+        style="height: 500px; box-shadow: none"
+        class="material fullscreen"
+        [columnMode]="'force'"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        [rowHeight]="45"
+        (activate)="onActivate($event)"
+        [rows]="configurations">
+            <ngx-datatable-column name="key">
+                <ng-template ngx-datatable-header-template>
+                Chave
+                </ng-template>           
+            </ngx-datatable-column>
+            <ngx-datatable-column name="description">
+                <ng-template ngx-datatable-header-template>
+                Descrição
+                </ng-template>                
+            </ngx-datatable-column>
+            <ngx-datatable-column name="value">
+                <ng-template ngx-datatable-header-template>
+                Valor
+                </ng-template>               
+            </ngx-datatable-column>
+        </ngx-datatable>
+    </div>
+</div>
+
+<ng-template #modalConfirm let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Alterar Dados</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p><strong>Tem certeza que deseja atualizar o parâmetro?</strong></p>
+        <p><span class="text-danger">Toda transação feita após a aplicação sofrerá alteração.</span></p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-warning btn-rounded m-1" (click)="modal.dismiss('cancel')">Cancel</button>
+        <button type="button" class="btn btn-primary btn-rounded m-1" (click)="modal.close('Ok')">Ok</button>
+    </div>
+</ng-template>

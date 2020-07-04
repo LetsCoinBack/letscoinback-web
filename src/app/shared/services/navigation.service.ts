@@ -82,11 +82,14 @@ export class NavigationService {
             ]
         },
         {
-            name: 'Doc',
-            type: 'extLink',
-            tooltip: 'Documentation',
+            name: 'Administrativo',
+            description: 'Configurações do Site.',
+            type: 'dropDown',
             icon: 'i-Safe-Box1',
-            state: 'http://demos.ui-lib.com/gull-doc'
+            hasRole: ["ADMIN"],
+            sub: [
+                { icon: 'i-Data', name: 'Ajustar Parametros ', state: '/admin/configuration', type: 'link', hasRole: ["ADMIN"] }
+            ]
         }
     ];
 

@@ -33,6 +33,10 @@ export class HeaderSidebarLargeComponent implements OnInit{
     private activeRoute: ActivatedRoute
   ) {}
 
+  onNavigate(){
+    this.router.navigateByUrl('/wallet/balance');
+  }
+
   userData () {
     this.router.navigateByUrl('/user/data');
   }

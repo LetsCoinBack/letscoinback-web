@@ -10,17 +10,22 @@ import { RestService } from '../../../shared/services/rest.service';
 })
 export class WalletBalanceComponent implements OnInit {
     entryChartPie: EChartOption;
-    userHistory: [];
+    userHistory;
     userBalance: [];
-    statusBalance: {
-        pendente: 0,
-        confirmado: 0,
-        rejeitado: 0
-    };
+    statusBalance: {};
+    movimentationType: {};
 	constructor(private restService: RestService) { }
 
 	ngOnInit() {
-        this.entryChartPie = this.defaultConfig;
+        this.movimentationType = {
+            entrada: 0,
+            saida: 0
+        }
+        this.statusBalance = {
+            pendente: 0,
+            confirmado: 0,
+            rejeitado: 0
+        }
         this.restService.callApi("getUserHistory").then(r => {
             this.userHistory = r["body"];
         });
@@ -35,8 +40,10 @@ export class WalletBalanceComponent implements OnInit {
         this.userBalance.forEach(u => {
             let key = u["status"] || "";
             if (u["movimentationType"] == "Entrada") {
+                this.movimentationType["entrada"] += u["vlrTotal"]
                 this.statusBalance[key.toLowerCase()] += u["vlrTotal"];
             } else {
+                this.movimentationType["saida"] += u["vlrTotal"]
                 this.statusBalance[key.toLowerCase()] -= u["vlrTotal"];
             }
         });
@@ -53,20 +60,23 @@ export class WalletBalanceComponent implements OnInit {
                     return true;
                 }
             });
-            if (idx > 0) {
+            if (idx >= 0) {
                 data[idx]["value"] += b["vlrTotal"];
             } else {
                 data.push({
-                    name: b["name"],
+                    name: b["transactionType"],
                     value: b["vlrTotal"]
                 });
             }
         });
-        this.entryChartPie.series["data"] = data;
+        
+        let val = this.defaultConfig;
+        val.series[0]["data"] = data;
+        this.entryChartPie = val;
     }
     
     defaultConfig = {
-        color: ['#62549c', '#7566b5', '#7d6cbb', '#8877bd', '#9181bd', '#6957af'],
+        color: ['#62549c', '#7d6cbb', '#8877bd', '#9181bd', '#6957af'],
         tooltip: {
             show: true,
             backgroundColor: 'rgba(0, 0, 0, .8)'

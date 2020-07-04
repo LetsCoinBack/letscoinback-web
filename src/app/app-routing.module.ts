@@ -22,7 +22,13 @@ const adminRoutes: Routes = [
       path: 'wallet',
       loadChildren: () => import('./views/wallet/wallet.module').then(m => m.WalletModule),
       canActivate: [AuthGaurd]
+    },
+    {
+      path: 'admin',
+      loadChildren: () => import('./views/admin/admin.module').then(m => m.AdminModule),
+      canActivate: [AdminGaurd]
     }
+    
   ];
 
 const routes: Routes = [

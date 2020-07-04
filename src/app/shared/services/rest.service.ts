@@ -14,6 +14,14 @@ export class RestService {
     constructor(private http:HttpClient, private store: LocalStoreService, private toastr: ToastrService, private router: Router) {}
 
     private requests = {
+        getAllConfiguration: {
+            url: "configuration/all",
+            method: "get"
+        },
+        updateConfiguration: {
+            url: "configuration/save",
+            method: "post"
+        },
         login: {
             url: "login/simple",
             method: "post"
@@ -63,15 +71,19 @@ export class RestService {
             method: "get"
         },
         registerPartner: {
-            url: "/partner/register",
+            url: "partner/register",
             method: "post"
         },
         getUserBalance: {
-            url: "/wallet/user/balance",
+            url: "wallet/user/balance",
             method: "get"
         },
         getUserHistory: {
-            url: "/wallet/user",
+            url: "wallet/user",
+            method: "get"
+        },
+        createPreSale: {
+            url: "sale/pre/##",
             method: "get"
         }
     }
