@@ -138,6 +138,7 @@ export class HeaderSidebarLargeComponent implements OnInit{
   }
   
   signup() {
+
     if (!this.registerForm.valid) {
       this.toastr.info("Preecha todos os campos antes de prosseguir!", "Atenção");
       return;
@@ -198,9 +199,19 @@ export class HeaderSidebarLargeComponent implements OnInit{
     return [
       {
         notificationType: "INDICADO_REGISTRADO",
-        link: "/user/data",
         status: "primary",
         icon: "i-Add-User",
+        badge: '1'
+      },
+      {
+        notificationType: "COMPRA_ALTERADA",
+        status: "primary",
+        icon: "i-Wallet",
+        badge: '1'
+      },      {
+        notificationType: "COMPRA_APROVADA",
+        status: "secondary",
+        icon: "i-Money1",
         badge: '1'
       }
     ]

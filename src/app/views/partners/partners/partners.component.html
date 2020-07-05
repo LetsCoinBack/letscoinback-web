@@ -64,9 +64,10 @@
               <button class="btn btn-icon bg-transparent" [ngClass]="{'d-none': viewMode === 'grid'}" (click)='editPartner(item)'>
                 <i class="i-File-Edit text-16 text-primary"></i>Editar
               </button>
+
             </p>
             <p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-actions">
-              <button class="btn btn-primary" (click)="onNavigate(item.redirect)" [ngClass]="{'d-none': viewMode === 'grid'}">
+              <button class="btn btn-primary" (click)="onNavigate(item.redirect, item.provider['paramSend'], item.id)" [ngClass]="{'d-none': viewMode === 'grid'}">
                 Visitar
               </button>
             </p>

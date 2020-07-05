@@ -7,7 +7,6 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
-
 @Component({
     templateUrl: './partners.component.html',
     styleUrls: ['./partners.component.scss'],
@@ -28,9 +27,12 @@ export class PartnersComponent implements OnInit{
       private router: Router
     ) { }
   
-    onNavigate(url){
+    onNavigate(url, param, id){
       if (this.auth.isAuthenticated()) {
-        window.open(url, "_blank");
+        this.restService.callApi("createPreSale", null, [id]).then(r=> {
+          let mountUrl = url + "?" + param + "=" + r["body"];
+          window.open(mountUrl, "_blank");  
+        });
         return;
       }
       this.toastr.warning("Faça login para garantir seu bonus!",'Atenção!');
