@@ -5,10 +5,13 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "clean": "rimraf ./dist",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "build:prod": "ng build --prod",
+    "build:ci": "npm run clean && npm run build:prod",
     "build:blue": "ng build --prod --base-href \"http://gull.ui-lib.com/blue/\"",
     "build:purple": "ng build --prod --base-href \"http://gull.ui-lib.com/purple/\""
   },
