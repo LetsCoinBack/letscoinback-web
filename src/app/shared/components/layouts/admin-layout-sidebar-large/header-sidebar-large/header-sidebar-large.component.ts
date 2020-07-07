@@ -16,6 +16,7 @@ import { RestService } from '../../../../services/rest.service';
 })
 export class HeaderSidebarLargeComponent implements OnInit{
   notifications: [];
+  notificationNotRead;  
   login: {};
   signinForm: FormGroup;
   registerForm: FormGroup;
@@ -43,6 +44,7 @@ export class HeaderSidebarLargeComponent implements OnInit{
 
   ngOnInit () {
     this.notifications = [];
+    this.notificationNotRead = "";
     this.signinForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(3)]]
@@ -155,6 +157,7 @@ export class HeaderSidebarLargeComponent implements OnInit{
 
   signout() {
     this.notifications = [];
+    this.notificationNotRead = "";
     this.auth.signout();
   }
 
@@ -182,12 +185,14 @@ export class HeaderSidebarLargeComponent implements OnInit{
       if (this.auth && this.auth.isAuthenticated()) {
         this.rest.callApi("getNotificationUser").then(r => {
           this.notifications = r["body"];
+          this.notificationNotRead = this.notifications.filter((n) => { return n["read"] == false }).length;
           this.notifications.forEach(n => {
             let extend = this.getNotificationSettings().find(g => { return g.notificationType == n["notificationType"] }) || {};
             n = Object.assign(n, extend);
           });
         }).catch(r => {
           this.notifications = [];
+          this.notificationNotRead = "";
         });
       }
       setTimeout(loop, 15000);

@@ -14,6 +14,10 @@ export class RestService {
     constructor(private http:HttpClient, private store: LocalStoreService, private toastr: ToastrService, private router: Router) {}
 
     private requests = {
+        getProviders: {
+            url: "provider/all",
+            method: "get"
+        },
         getAllConfiguration: {
             url: "configuration/all",
             method: "get"
@@ -71,7 +75,7 @@ export class RestService {
             method: "get"
         },
         registerPartner: {
-            url: "partner/register",
+            url: "partner/register/provider/##",
             method: "post"
         },
         getUserBalance: {

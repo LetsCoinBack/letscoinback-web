@@ -15,7 +15,8 @@
     <div class="header-part-right">
         <div *ngIf="ngIsAuthenticated()" ngbDropdown [placement]="'bottom-right'">
             <div class="badge-top-container">
-                <span class="badge badge-primary">{{notifications.length}}</span>
+                <span class="badge badge-primary">{{notificationNotRead}}</span>
+
                 <i ngbDropdownToggle class="i-Bell text-muted header-icon" role="button"></i>
             </div>
             <div ngbDropdownMenu class="notification-dropdown rtl-ps-none" perfectScrollbar>

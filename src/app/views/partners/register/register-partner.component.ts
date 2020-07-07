@@ -14,6 +14,7 @@ import { ActivatedRoute} from '@angular/router';
 })
 export class RegisterPartnerComponent implements OnInit{
     formRegister: FormGroup;
+    providers;
     constructor(
       private restService: RestService,
       private toastr: ToastrService,
@@ -52,7 +53,7 @@ export class RegisterPartnerComponent implements OnInit{
     }
 
     submit() {
-      this.restService.callApi("registerPartner", this.formRegister.value).then (r  => {
+      this.restService.callApi("registerPartner", this.formRegister.value, [this.formRegister.value["provider"]]).then (r  => {
         this.toastr.success("Dados salvos com sucesso. Você pode confirmar na página de lista de parceiros!", "Sucesso!");
       });
     }
@@ -60,6 +61,13 @@ export class RegisterPartnerComponent implements OnInit{
     ngOnInit() {
       this.formRegister = this.getFb();
       this.changeLeft();
+      this.getProviders();
+    }
+
+    getProviders() {
+      this.restService.callApi("getProviders").then(r => {
+        this.providers = r["body"];
+      });
     }
 
     getFb() {
@@ -67,7 +75,6 @@ export class RegisterPartnerComponent implements OnInit{
       this.activeRouter.params.subscribe(v => {
         values = v;
       },e => {});
-
       return this.fb.group({
         id: [values["id"]],
         name: [values["name"], [Validators.required]],
@@ -77,7 +84,8 @@ export class RegisterPartnerComponent implements OnInit{
         userCashback: [values["userCashback"] || ''],
         position: [values["position"] || ''],
         type: [values["type"] || 'Cashback', [Validators.required]],
-        available: [values["available"] || true, [Validators.required]]
+        available: [values["available"] || true, [Validators.required]],
+        provider: [values["provider"] || '']
       });
     }
 

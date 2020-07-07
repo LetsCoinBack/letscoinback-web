@@ -30,17 +30,23 @@
                             <span class="slider"></span>
                         </label>
                     </div>
-                    <div class="col-md-3 form-group mb-3">
-                        <label for="firstName">Cashback</label>
+                    <div class="col-md-2 form-group mb-3">
+                        <label for="firstName">Cashback(%)</label>
                         <input type="text" class="form-control" formControlName="cashback" id="cashback">
                     </div>
-                    <div class="col-md-3 form-group mb-3">
-                        <label for="firstName">Cashback Usuário</label>
+                    <div class="col-md-2 form-group mb-3">
+                        <label for="firstName">Cashback Usuário(%)</label>
                         <input type="text" class="form-control" formControlName="userCashback" id="userCashback">
                     </div>
-                    <div class="col-md-3 form-group mb-3">
+                    <div class="col-md-2 form-group mb-3">
                         <label for="firstName">Posição Visualização</label>
                         <input type="text" class="form-control" formControlName="position" id="position">
+                    </div>
+                    <div class="col-md-3 form-group mb-3">  
+                        <label for="picker1">Provedor</label>
+                        <select formControlName="provider" class="dropdown">
+                            <option *ngFor="let obj of providers" [value]="obj.id">{{obj.name}}</option>
+                        </select>
                     </div>
                     <div class="col-md-3 form-group mb-3">
                         <label for="picker1">Tipo de Bônus</label>

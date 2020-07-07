@@ -48,7 +48,9 @@ export class PartnersComponent implements OnInit{
       if (partner["position"] == null) {
         delete partner["position"];
       }
-      this.router.navigate(["/partner/register", partner]);
+      let tpPartner = partner;
+      tpPartner["provider"] = partner["provider"]["id"]
+      this.router.navigate(["/partner/register", tpPartner], {skipLocationChange: true, replaceUrl: false});
     }
 
     ngOnInit() {
