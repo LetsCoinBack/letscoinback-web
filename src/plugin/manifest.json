@@ -1,0 +1,10 @@
+{
+  "manifest_version": 2,
+  "name": "LetsCoinBack",
+  "version": "0.1.0",
+  "background": { "scripts": ["background.js"] },
+  "permissions": [ "webNavigation", "<all_urls>", "notifications", "alarms"],
+  "browser_action": {
+    "default_popup": "index.html"
+  }
+}
