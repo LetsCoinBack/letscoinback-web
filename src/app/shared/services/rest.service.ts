@@ -14,6 +14,18 @@ export class RestService {
     constructor(private http:HttpClient, private store: LocalStoreService, private toastr: ToastrService, private router: Router) {}
 
     private requests = {
+        drawMoney: {
+            url: "wallet/user/draw",
+            method: "get"
+        },
+        getBalance: {
+            url: "wallet/balance",
+            method: "get"
+        },
+        getHistoryBalance: {
+            url: "wallet/balance/history",
+            method: "get"
+        },
         getProviders: {
             url: "provider/all",
             method: "get"

@@ -14,6 +14,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class UserDataComponent implements OnInit{
     formUser: FormGroup;
     formIndicate: FormGroup;
+    linkWehpm;
     phoneMask = ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
     userIndicate = {
       present: false,
@@ -69,6 +70,7 @@ export class UserDataComponent implements OnInit{
     }
 
     ngOnInit() {
+      this.linkWehpm = 'https://office.wehpm.com/register';
       this.formUser = this.getFb();
       this.formUser.get("authority").disable();
       this.getIndicate();
@@ -80,6 +82,7 @@ export class UserDataComponent implements OnInit{
       if (this.auth.getuser()["indicate"]) {
         this.restService.callApi("getIndicateUser", null, [this.auth.getuser()["indicate"]*1]).then(r => {
           if (r["body"]) {
+            console.log(r);
             this.mountIndicate(r);
           }
         });
@@ -92,8 +95,10 @@ export class UserDataComponent implements OnInit{
         id: [r["body"]["id"]],
         email: [r["body"]["email"]],
         name: [r["body"]["name"]],
-        cel: [r["body"]["cel"]]
+        cel: [r["body"]["cel"]],
+        linkWehpm: [r["body"]["linkWehpm"]]
       });
+      this.linkWehpm = r["body"]["linkWehpm"] || this.linkWehpm;
       this.formIndicate.get("name").disable();
       this.formIndicate.get("email").disable();
       this.formIndicate.get("cel").disable();
@@ -109,7 +114,8 @@ export class UserDataComponent implements OnInit{
         authority: [this.auth.getuser()["authority"].toUpperCase()],
         photo: [this.auth.getuser()["photo"]],
         available: [true],
-        indicate: [this.auth.getuser()["indicate"]]
+        indicate: [this.auth.getuser()["indicate"]],
+        linkWehpm: [this.auth.getuser()["linkWehpm"]]
       });
     }
 

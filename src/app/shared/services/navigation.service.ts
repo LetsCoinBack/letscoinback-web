@@ -53,15 +53,6 @@ export class NavigationService {
     
     defaultMenu: IMenuItem[] = [
         {
-            name: 'Carteira',
-            description: 'Minha Carteira.',
-            type: 'dropDown',
-            icon: 'i-Wallet',
-            sub: [
-                { icon: 'i-Money-Bag', name: 'Saldo', state: '/wallet/balance', type: 'link' }
-            ]
-        },
-        {
             name: 'Usuários',
             description: 'Informações de usuário.',
             type: 'dropDown',
@@ -69,6 +60,15 @@ export class NavigationService {
             sub: [
                 { icon: 'i-Checked-User', name: 'Meus Dados', state: '/user/data', type: 'link' },
                 { icon: 'i-Add-User', name: 'Lista de Usuários', state: '/user/list', type: 'link', hasRole: ["ADMIN"]}
+            ]
+        },
+        {
+            name: 'Carteira',
+            description: 'Minha Carteira.',
+            type: 'dropDown',
+            icon: 'i-Wallet',
+            sub: [
+                { icon: 'i-Money-Bag', name: 'Saldo', state: '/wallet/balance', type: 'link' }
             ]
         },
         {
@@ -88,6 +88,7 @@ export class NavigationService {
             icon: 'i-Safe-Box1',
             hasRole: ["ADMIN"],
             sub: [
+                { icon: 'i-Money-Bag', name: 'Dashboard ', state: '/admin/balance', type: 'link', hasRole: ["ADMIN"] },
                 { icon: 'i-Data', name: 'Ajustar Parametros ', state: '/admin/configuration', type: 'link', hasRole: ["ADMIN"] }
             ]
         }

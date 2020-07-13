@@ -7,8 +7,11 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { TextMaskModule } from 'angular2-text-mask';
+import { CurrencyMaskModule } from "ng2-currency-mask";
 
 @NgModule({
+
   imports: [
     CommonModule,
     SharedComponentsModule,
@@ -17,7 +20,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     NgbModule,
     WalletRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    TextMaskModule,
+    FormsModule,
+    CurrencyMaskModule
   ],
   declarations: [WalletBalanceComponent]
 })

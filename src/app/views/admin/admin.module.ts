@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { PartnersRoutingModule } from './admin-routing.module';
+import { AdminRoutingModule } from './admin-routing.module';
 import { AdminConfigurationComponent } from './configuration/admin-configuration.component';
+import { AdminBalanceComponent } from './balance/admin-balance.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxEchartsModule } from 'ngx-echarts';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TextMaskModule } from 'angular2-text-mask';
 import { SharedComponentsModule } from 'src/app/shared/components/shared.components.module';
@@ -18,10 +20,11 @@ import { SharedComponentsModule } from 'src/app/shared/components/shared.compone
     NgxPaginationModule,
     NgxDatatableModule,
     NgbModule,
-    PartnersRoutingModule,
+    AdminRoutingModule,
     TextMaskModule,
+    NgxEchartsModule,
     SharedComponentsModule
   ],
-  declarations: [AdminConfigurationComponent]
+  declarations: [AdminConfigurationComponent, AdminBalanceComponent]
 })
 export class AdminModule { }

@@ -1,78 +1,138 @@
 <div class="breadcrumb">
-    <h1>Carteira</h1>
+    <h1>Administrativo</h1>
     <ul>
         <li>Balalanço</li>
-        <li>Usuário</li>
-        <li style="cursor: pointer; font-weight: bold;" (click)="openModal(modalDraw)">Sacar Dinheiro</li>
+        <li>Geral</li>
     </ul>
 </div>
 <div class="separator-breadcrumb border-top"></div>
+<div class="card-title mb-3">Filtros</div>
+<form [formGroup]="formFilter" (ngSubmit)="findValues()">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-3 form-group mb-3">
+                    <label for="firstName">Status Transação</label>
+                    <select formControlName="status" class="dropdown">
+                        <option *ngFor="let obj of statusList" [value]="obj">{{obj}}</option>
+                    </select>
+                </div>
+                <div class="col-md-3 form-group mb-3">
+                    <label for="firstName">Tipo Transação</label>
+                    <select formControlName="transactionType" class="dropdown">
+                        <option *ngFor="let obj of transactionList" [value]="obj">{{obj}}</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <button style="margin-top: 25px;" class="btn btn-secundary btn-rounded" >Buscar</button>
+                    <button style="margin-top: 25px; margin-left: 15px;" (click)="cleanFilter()" class="btn btn-warning btn-rounded" >Limpar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 <div class="row">
     <div class="col-lg-3 col-md-4 col-sm-6">
-        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4" style="background-color: #e1f3f5;"> 
             <div class="card-body text-center">
-                <i class="i-Money-Bag"></i>
+                <i class="i-Coins"></i>
                 <div class="content">
-                    <p class="text-muted mt-2 mb-0">Entrada</p>
-                    <p class="text-primary text-24 line-height-1 mb-2">{{movimentationType["entrada"] | currency}}</p>
+                    <p class="text-muted mt-2 mb-0">{{entrada["total"]  | currency}}</p>
+                    <p class="text-primary text-24 line-height-1 mb-2">Entrada</p>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-lg-3 col-md-4 col-sm-6">
-        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-            <div class="card-body text-center">
-                <i class="i-Back1"></i>
-                <div class="content">
-                    <p class="text-muted mt-2 mb-0">Saída</p>
-                    <p class="text-primary text-24 line-height-1 mb-2">{{movimentationType["saida"] | currency}}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2 col-md-4 col-sm-6">
         <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
             <div class="card-body text-center">
                 <i class="i-Bag-Coins"></i>
                 <div class="content">
                     <p class="text-muted mt-2 mb-0">Confirmado</p>
-                    <p class="text-primary text-24 line-height-1 mb-2">{{statusBalance["confirmado"] | currency}}</p>
+                    <p class="text-primary text-24 line-height-1 mb-2">{{entrada["Confirmado"] | currency}}</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-lg-2 col-md-4 col-sm-6">
+    <div class="col-lg-3 col-md-4 col-sm-6">
         <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
             <div class="card-body text-center">
                 <i class="i-Money-2"></i>
                 <div class="content">
                     <p class="text-muted mt-2 mb-0">Pendente</p>
-                    <p class="text-primary text-24 line-height-1 mb-2">{{statusBalance["pendente"] | currency}}</p>
+                    <p class="text-primary text-24 line-height-1 mb-2">{{entrada["Pendente"] | currency}}</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-lg-2 col-md-4 col-sm-6">
+    <div class="col-lg-3 col-md-4 col-sm-6">
         <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
             <div class="card-body text-center">
                 <i class="i-Close"></i>
                 <div class="content">
                     <p class="text-muted mt-2 mb-0">Rejeitado</p>
-                    <p class="text-primary text-24 line-height-1 mb-2">{{statusBalance["rejeitado"] | currency}}</p>
+                    <p class="text-primary text-24 line-height-1 mb-2">{{entrada["Rejeitado"] | currency}}</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4" style="background-color: #f5e1e9;"> 
+            <div class="card-body text-center">
+                <i class="i-Financial"></i>
+                <div class="content">
+                    <p class="text-muted mt-2 mb-0">{{saida["total"] | currency}}</p>
+                    <p class="text-primary text-24 line-height-1 mb-2">Saída</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+            <div class="card-body text-center">
+                <i class="i-Bag-Coins"></i>
+                <div class="content">
+                    <p class="text-muted mt-2 mb-0">Confirmado</p>
+                    <p class="text-primary text-24 line-height-1 mb-2">{{saida["Confirmado"] | currency}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+            <div class="card-body text-center">
+                <i class="i-Money-2"></i>
+                <div class="content">
+                    <p class="text-muted mt-2 mb-0">Pendente</p>
+                    <p class="text-primary text-24 line-height-1 mb-2">{{saida["Pendente"] | currency}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+            <div class="card-body text-center">
+                <i class="i-Close"></i>
+                <div class="content">
+                    <p class="text-muted mt-2 mb-0">Rejeitado</p>
+                    <p class="text-primary text-24 line-height-1 mb-2">{{saida["Rejeitado"] | currency}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-lg-3 col-sm-12">
         <div class="card mb-4">
             <div class="card-body">
                 <div class="card-title">Entrada por Tipo</div>
-                <div echarts [options]="entryChartPie" [autoResize]="true" style="height: 300px;"></div>
+                <div *ngIf="seeGraphic" echarts [options]="entryChartPie" [update$]="update$" [autoResize]="true" style="height: 300px;"></div>
             </div>
         </div>
     </div>
@@ -86,7 +146,7 @@
             [footerHeight]="50"
             [rowHeight]="45"
             [scrollbarV]="true"
-            [rows]="userHistory">
+            [rows]="balanceHistory">
               <ngx-datatable-column name="date">
                 <ng-template ngx-datatable-header-template>
                   Data
@@ -127,21 +187,3 @@
         </div>
     </div>
 </div>
-
-<ng-template #modalDraw let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-title">Solicitação de Saque</h4>
-      <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-        <div class="form-group">
-            <label for="name">Valor</label>
-            <input ngbAutofocus id="name" currencyMask [(ngModel)]="drawValue"  class="form-control form-control-rounded" type="text">
-        </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-primary btn-rounded m-1" (click)="drawMoney(drawValue)">Solicitar</button>
-    </div>
-  </ng-template>

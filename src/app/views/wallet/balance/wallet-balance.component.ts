@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { EChartOption } from 'echarts';
 import { RestService } from '../../../shared/services/rest.service';
-
+import { ToastrService } from 'ngx-toastr';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
 	selector: 'app-wallet-balance',
@@ -14,8 +15,9 @@ export class WalletBalanceComponent implements OnInit {
     userBalance: [];
     statusBalance: {};
     movimentationType: {};
-	constructor(private restService: RestService) { }
-
+    drawValue;
+    constructor(private restService: RestService, private toastr: ToastrService, private modalService: NgbModal) { }
+    
 	ngOnInit() {
         this.movimentationType = {
             entrada: 0,
@@ -36,6 +38,11 @@ export class WalletBalanceComponent implements OnInit {
         });
     }
 
+    openModal(content) {
+        this.drawValue = "";
+        this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true });
+    }
+
     moutStatusBalance() {
         this.userBalance.forEach(u => {
             let key = u["status"] || "";
@@ -46,6 +53,13 @@ export class WalletBalanceComponent implements OnInit {
                 this.movimentationType["saida"] += u["vlrTotal"]
                 this.statusBalance[key.toLowerCase()] -= u["vlrTotal"];
             }
+        });
+    }
+
+    drawMoney(value) {
+        console.log(value);
+        this.restService.callApi("drawMoney", {value: value}).then(r => {
+            this.toastr.success("Transferimos o valor para sua carteira.", "Sucesso");
         });
     }
 
