@@ -43,7 +43,7 @@
       [ngClass]="{'col-md-12': viewMode === 'list', 'col-md-2': viewMode === 'grid', 'col-sm-4': viewMode === 'grid'}"
       [@animate]="{value:'*',params:{delay: (i*100)+'ms', y:'50px'}}">
       <div class="card o-hidden mb-4 d-flex" [ngClass]="{'flex-row': viewMode === 'list', 'flex-column': viewMode === 'grid'}">
-        <div (click)="onNavigate(item.redirect)" class="list-thumb d-flex link">
+        <div (click)="onNavigate(item.redirect, item.provider['paramSend'], item.id)" class="list-thumb d-flex link">
           <!-- TUMBNAIL -->
           <img class="fotoNovoLayout" [src]="item.photo" alt="">
         </div>
@@ -51,13 +51,13 @@
           <div class="card-body align-self-center d-flex flex-column justify-content-between align-items-lg-center"
             [ngClass]="{'flex-lg-row': viewMode === 'list'}">
             <!-- OTHER DATA -->
-            <a (click)="onNavigate(item.redirect)" href="" class="w-40 w-sm-100">
+            <a (click)="onNavigate(item.redirect, item.provider['paramSend'], item.id)" href="" class="w-40 w-sm-100">
               <div class="item-title">{{item.name}}</div>
             </a>
-            <p (click)="onNavigate(item.redirect)" class="m-0 text-muted text-small w-15 w-sm-100 link">{{item.type || 'Cashback'}}</p>
-            <p (click)="onNavigate(item.redirect)" class="m-0 text-muted text-small w-15 w-sm-100 link">
+            <p (click)="onNavigate(item.redirect, item.provider['paramSend'], item.id)" class="m-0 text-muted text-small w-15 w-sm-100 link">{{item.type || 'Cashback'}}</p>
+            <p (click)="onNavigate(item.redirect, item.provider['paramSend'], item.id)" class="m-0 text-muted text-small w-15 w-sm-100 link">
               <div class="item-title">Até {{item.userCashback || defaultCashback}}% de LQX cashback</div>
-            <p (click)="onNavigate(item.redirect)" class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges link">
+            <p (click)="onNavigate(item.redirect, item.provider['paramSend'], item.id)" class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-badges link">
               <span class="badge badge-primary">{{item.userCashback || defaultCashback}}%</span>
             </p>
             <p *ngIf="auth.hasRole('ADMIN')" class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-actions" >

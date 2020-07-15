@@ -144,6 +144,10 @@ export class RestService {
             this.router.navigateByUrl("/");
             return false;
         }
+        if(response.status == 403) {
+            this.toastr.warning("Você não tem permissão para acessar este recurso!", "Atenção");
+            return false;
+        }
         this.toastr.error(response.error["message"], "Atenção!");
     }
 
