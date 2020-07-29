@@ -14,6 +14,10 @@ export class RestService {
     constructor(private http:HttpClient, private store: LocalStoreService, private toastr: ToastrService, private router: Router) {}
 
     private requests = {
+        getSegments: {
+            url: "segment/all",
+            method: "get"
+        },
         drawMoney: {
             url: "wallet/user/draw",
             method: "get"
@@ -26,6 +30,14 @@ export class RestService {
             url: "wallet/balance/history",
             method: "get"
         },
+        getMasterProviders: {
+            url: "provider/master/all",
+            method: "get"
+        },
+        updateProvider: {
+            url: "provider/update",
+            method: "post"
+        },
         getProviders: {
             url: "provider/all",
             method: "get"
@@ -36,6 +48,14 @@ export class RestService {
         },
         updateConfiguration: {
             url: "configuration/save",
+            method: "post"
+        },
+        getAllMasterConfiguration: {
+            url: "configuration/master/all",
+            method: "get"
+        },
+        updateMasterConfiguration: {
+            url: "configuration/master/save",
             method: "post"
         },
         login: {

@@ -1,0 +1,13 @@
+.flex-row {
+    .fotoNovoLayout {
+        height: 100px;
+        width: 150px;
+        min-width: 150px;
+    }
+}
+
+.link {
+    &:hover{
+        cursor: pointer;
+    }
+}

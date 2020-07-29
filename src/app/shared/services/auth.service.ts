@@ -15,10 +15,15 @@ export class AuthService {
     return this.store.getItem("auth_user") !=   null;
   }
 
+  
   hasRole (role) {
     let user = this.store.getItem("user") || {};
-    let authorities = [(user["authority"] || "").toUpperCase()];
-    return authorities.includes(role.toUpperCase());
+    let authority = (user["authority"] || "").toUpperCase();
+    let roleH = ["USER", "ADMIN", "MASTER"];
+    let obj = roleH.find( (o, i) => {
+      return role == o && i <= roleH.indexOf(authority);
+    });
+    return (obj || "").length > 0;
   }
 
   getuser() {

@@ -15,6 +15,8 @@ import { ActivatedRoute} from '@angular/router';
 export class RegisterPartnerComponent implements OnInit{
     formRegister: FormGroup;
     providers;
+    segments;
+    newSegment;
     constructor(
       private restService: RestService,
       private toastr: ToastrService,
@@ -23,7 +25,8 @@ export class RegisterPartnerComponent implements OnInit{
       private activeRouter: ActivatedRoute
     ) { }
 
-    changePhoto(content) {
+    openModal(content) {
+      this.newSegment = "";
       this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true });
     }
 
@@ -58,10 +61,33 @@ export class RegisterPartnerComponent implements OnInit{
       });
     }
 
+    saveSegment(val: String) {
+      let find = this.segments.find(r => {
+        return r["description"].toUpperCase() == val.toUpperCase();
+      });
+      this.modalService.dismissAll();
+      if (find) {
+        this.toastr.error("Esse segmento já existe, utilize-o");
+        return;
+      }
+      let obj = [{"description": val}];
+      this.segments = this.segments.concat(obj);
+      let value = this.formRegister.value;
+      value["segment"] = val;
+      this.formRegister.setValue(value);
+    }
+
     ngOnInit() {
       this.formRegister = this.getFb();
       this.changeLeft();
       this.getProviders();
+      this.findSegments();
+    }
+
+    findSegments() {
+      this.restService.callApi("getSegments").then(r => {
+        this.segments = r["body"];
+      });
     }
 
     getProviders() {
@@ -85,7 +111,8 @@ export class RegisterPartnerComponent implements OnInit{
         position: [values["position"] || ''],
         type: [values["type"] || 'Cashback', [Validators.required]],
         available: [values["available"] || true, [Validators.required]],
-        provider: [values["provider"] || '']
+        provider: [values["provider"] || ''],
+        segment: [values["segment"] || '']
       });
     }
 

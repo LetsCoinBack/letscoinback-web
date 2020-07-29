@@ -89,7 +89,9 @@ export class NavigationService {
             hasRole: ["ADMIN"],
             sub: [
                 { icon: 'i-Money-Bag', name: 'Dashboard ', state: '/admin/balance', type: 'link', hasRole: ["ADMIN"] },
-                { icon: 'i-Data', name: 'Ajustar Parametros ', state: '/admin/configuration', type: 'link', hasRole: ["ADMIN"] }
+                { icon: 'i-Data', name: 'Ajustar Parametros ', state: '/admin/configuration', type: 'link', hasRole: ["ADMIN"] },
+                { icon: 'i-Danger', name: 'Configurações Mestres ', state: '/admin/master/configuration', type: 'link', hasRole: ["MASTER"] },
+                { icon: 'i-Unlock-2', name: 'Provedores Integrados ', state: '/admin/master/provider', type: 'link', hasRole: ["MASTER"] }
             ]
         }
     ];

@@ -1,0 +1,108 @@
+<div class="">
+    <div class="breadcrumb">
+        <h1>Provedores</h1>
+        <ul>
+            <li>Parceiro</li>
+            <li>Integrado</li>
+        </ul>
+    </div>
+    <div class="separator-breadcrumb border-top"></div>
+</div>
+
+<div class="card-title mb-3">Editar Provedor</div>
+
+<div *ngIf="formEdit.value['id']" class="card-body col-md-12">
+    <form [formGroup]="formEdit" (ngSubmit)="confirm(modalConfirm)">
+        <div class="row">
+            <div class="col-md-2 form-group mb-3">
+                <label for="firstName">Provedor</label>
+                <input type="text" class="form-control" formControlName="name">
+            </div>
+            <div class="col-md-3 form-group mb-3">
+                <label for="firstName">Usuário</label>
+                <input type="text" class="form-control" formControlName="user">
+            </div>
+            <div class="col-md-2 form-group mb-3">
+                <label for="firstName">Senha</label>
+                <input type="text" class="form-control" formControlName="password">
+            </div>
+            <div class="col-md-2 form-group mb-3">
+                <label for="firstName">Publisher</label>
+                <input type="text" class="form-control" formControlName="publisher">
+            </div>
+            <div class="col-md-2 form-group mb-3">
+                <label for="firstName">Parametro</label>
+                <input type="text" class="form-control" formControlName="paramSend">
+            </div>
+            <div class="col-md-2 form-group mb-3">
+                <label for="firstName">Link API</label>
+                <input type="text" class="form-control" formControlName="url">
+            </div>
+            <div class="col-md-3 botao">
+                <button style="float: left;" class="btn btn-primary btn-rounded" >Salvar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="col-md-10">
+    <div class="card  o-hidden">
+        <ngx-datatable
+        style="height: 500px; box-shadow: none"
+        class="material fullscreen"
+        [columnMode]="'force'"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        [rowHeight]="45"
+        (activate)="onActivate($event)"
+        [rows]="providers">
+            <ngx-datatable-column name="name">
+                <ng-template ngx-datatable-header-template>
+                Provedor
+                </ng-template>           
+            </ngx-datatable-column>
+            <ngx-datatable-column name="user">
+                <ng-template ngx-datatable-header-template>
+                Usuário
+                </ng-template>                
+            </ngx-datatable-column>
+            <ngx-datatable-column name="password">
+                <ng-template ngx-datatable-header-template>
+                Senha
+                </ng-template>               
+            </ngx-datatable-column>
+            <ngx-datatable-column name="publisher">
+                <ng-template ngx-datatable-header-template>
+                Publisher
+                </ng-template>           
+            </ngx-datatable-column>
+            <ngx-datatable-column name="paramSend">
+                <ng-template ngx-datatable-header-template>
+                Parametro
+                </ng-template>           
+            </ngx-datatable-column>
+            <ngx-datatable-column name="url">
+                <ng-template ngx-datatable-header-template>
+                Lnk API
+                </ng-template>           
+            </ngx-datatable-column>
+        </ngx-datatable>
+    </div>
+</div>
+
+<ng-template #modalConfirm let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Alterar Dados</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p><strong>Tem certeza que deseja atualizar o provedor?</strong></p>
+        <p><span class="text-danger">Toda transação feita após a aplicação sofrerá alteração.</span></p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-warning btn-rounded m-1" (click)="modal.dismiss('cancel')">Cancel</button>
+        <button type="button" class="btn btn-primary btn-rounded m-1" (click)="modal.close('Ok')">Ok</button>
+    </div>
+</ng-template>

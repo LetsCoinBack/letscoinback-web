@@ -45,6 +45,7 @@
       <pagination-controls (pageChange)="page = $event" previousLabel="" nextLabel=""></pagination-controls>
     </div>
   </div>
+
 </div>
 
 <ng-template #modalConfirm let-modal>
@@ -55,6 +56,12 @@
     </button>
   </div>
   <div class="modal-body">
+    <div *ngIf="auth.hasRole('MASTER')" class="form-group">
+      <label for="name">Permissão</label>
+      <select [(ngModel)]="updateAutority" class="dropdown">
+        <option *ngFor="let obj of roleList" [value]="obj">{{obj}}</option>
+      </select>
+    </div>
     <p><strong>Tem certeza que deseja alterar o perfil deste usuário?</strong></p>
     <p><span class="text-danger">O usuário precisará reconectar para ter acesso aos novos privilégios.</span></p>
   </div>

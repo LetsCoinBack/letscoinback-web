@@ -16,13 +16,16 @@ export class UserListComponent implements OnInit{
     searchControl: FormControl = new FormControl();
     data;
     filtered;
+    updateAutority;
     viewMode = 'list';
     page = 1;
+    roleList;
   
     constructor(
       private restService: RestService,
       private toastr: ToastrService,
-      private modalService: NgbModal
+      private modalService: NgbModal,
+      private auth: AuthService
     ) { }
 
     changeAutority (id, authority) {
@@ -37,6 +40,7 @@ export class UserListComponent implements OnInit{
     };
   
     ngOnInit() {
+      this.roleList = ["USER", "ADMIN", "MASTER"];
       this.updateGrid();
       this.searchControl.valueChanges
       .pipe(debounceTime(200))
@@ -72,10 +76,11 @@ export class UserListComponent implements OnInit{
     }
 
     confirm(content, id, authority) {
+      this.updateAutority = null;
       let newAuthority = authority == 'USER' ? 'ADMIN' : 'USER';
       this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true })
       .result.then((result) => {
-        this.changeAutority (id, newAuthority);
+        this.changeAutority (id, this.updateAutority || newAuthority);
       }, (e) => {});
     }
 }

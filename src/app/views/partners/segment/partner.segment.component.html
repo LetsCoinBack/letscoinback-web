@@ -1,8 +1,8 @@
 <div class="breadcrumb">
-    <h1>Lojas</h1>
+    <h1>Segmento</h1>
     <ul>
-        <li>Parceiros</li>  
-        <li>Credenciados</li>
+        <li>Segmento</li>
+        <li>Parceiro</li>
     </ul>
 </div>
 <div class="separator-breadcrumb border-top"></div>
@@ -27,16 +27,9 @@
       </svg>
     </button>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-4">
     <div class="form-group">
-      <input id="email" placeholder="Pesquisar Loja" [formControl]="searchControl" class="form-control form-control-rounded" type="text">
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="form-group">
-      <select class="dropdown" [formControl]="segment" placeholder="Pesquisar Segmento" >
-          <option *ngFor="let obj of segments" [value]="obj.description">{{obj.description}}</option>
-      </select>
+      <input id="email" placeholder="Pesquisar Loja" [formControl]="searchControl" class="form-control form-control-rounded" type="email">
     </div>
   </div>
 </div>
