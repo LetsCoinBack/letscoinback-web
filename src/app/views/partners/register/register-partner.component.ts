@@ -97,6 +97,7 @@ export class RegisterPartnerComponent implements OnInit{
       this.activeRouter.params.subscribe(v => {
         values = v;
       },e => {});
+      let str = values["segments"].indexOf(",") > 0 ? values["segments"].split(",") : [];
       return this.fb.group({
         id: [values["id"]],
         name: [values["name"], [Validators.required]],
@@ -108,7 +109,7 @@ export class RegisterPartnerComponent implements OnInit{
         type: [values["type"] || 'Cashback', [Validators.required]],
         available: [values["available"] || true, [Validators.required]],
         provider: [values["provider"] || ''],
-        segments: [values["segments"].split(",") || []]
+        segments: [str || []]
       });
     }
 
