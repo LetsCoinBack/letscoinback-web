@@ -3,7 +3,7 @@ import { SharedAnimations } from 'src/app/shared/animations/shared-animations';
 import { RestService } from 'src/app/shared/services/rest.service';
 import { AuthService } from '../../../shared/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute} from '@angular/router';
 
@@ -15,8 +15,7 @@ import { ActivatedRoute} from '@angular/router';
 export class RegisterPartnerComponent implements OnInit{
     formRegister: FormGroup;
     providers;
-    segments;
-    newSegment;
+    autocompletes$;
     constructor(
       private restService: RestService,
       private toastr: ToastrService,
@@ -25,8 +24,15 @@ export class RegisterPartnerComponent implements OnInit{
       private activeRouter: ActivatedRoute
     ) { }
 
+
+    ngOnInit() {
+      this.formRegister = this.getFb();
+      this.changeLeft();
+      this.getProviders();
+      this.findSegments();
+    }
+
     openModal(content) {
-      this.newSegment = "";
       this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true });
     }
 
@@ -56,37 +62,27 @@ export class RegisterPartnerComponent implements OnInit{
     }
 
     submit() {
-      this.restService.callApi("registerPartner", this.formRegister.value, [this.formRegister.value["provider"]]).then (r  => {
+       this.restService.callApi("registerPartner", this.getVal(this.formRegister.value), [this.formRegister.value["provider"]]).then (r  => {
         this.toastr.success("Dados salvos com sucesso. Você pode confirmar na página de lista de parceiros!", "Sucesso!");
       });
     }
 
-    saveSegment(val: String) {
-      let find = this.segments.find(r => {
-        return r["description"].toUpperCase() == val.toUpperCase();
+    getVal(val) {
+      let nVal = [];
+      val["segments"].forEach(v => {
+        if (v["value"]) {
+          nVal.push(v["value"]);
+        } else {
+          nVal.push(v);
+        }
       });
-      this.modalService.dismissAll();
-      if (find) {
-        this.toastr.error("Esse segmento já existe, utilize-o");
-        return;
-      }
-      let obj = [{"description": val}];
-      this.segments = this.segments.concat(obj);
-      let value = this.formRegister.value;
-      value["segment"] = val;
-      this.formRegister.setValue(value);
-    }
-
-    ngOnInit() {
-      this.formRegister = this.getFb();
-      this.changeLeft();
-      this.getProviders();
-      this.findSegments();
+      val["segments"] = nVal;
+      return val;
     }
 
     findSegments() {
       this.restService.callApi("getSegments").then(r => {
-        this.segments = r["body"];
+        this.autocompletes$ = r["body"].map(b => b["description"]);
       });
     }
 
@@ -112,7 +108,7 @@ export class RegisterPartnerComponent implements OnInit{
         type: [values["type"] || 'Cashback', [Validators.required]],
         available: [values["available"] || true, [Validators.required]],
         provider: [values["provider"] || ''],
-        segment: [values["segment"] || '']
+        segments: [values["segments"].split(",") || []]
       });
     }
 

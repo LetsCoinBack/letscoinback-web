@@ -51,7 +51,6 @@ export class PartnersComponent implements OnInit{
       }
       let tpPartner = partner;
       tpPartner["provider"] = partner["provider"]["id"];
-      tpPartner["segment"] = partner["partnerSegment"]["description"];
       this.router.navigate(["/partner/register", tpPartner], {skipLocationChange: true, replaceUrl: false});
     }
 

@@ -33,7 +33,7 @@
             <p class="m-0 text-muted text-small w-15 w-sm-100 link">{{item.email}}</p>
             <p class="m-0 text-muted text-small w-15 w-sm-100 link">{{item.authority.toUpperCase()}}</p>
             <p class="m-0 text-muted text-small w-15 w-sm-100 d-none d-lg-block item-actions">
-              <button class="btn btn-primary" (click)="confirm(modalConfirm, item.id, item.authority.toUpperCase())" [ngClass]="{'d-none': viewMode === 'grid'}">
+              <button *ngIf="!(!auth.hasRole('MASTER') && item.authority.toUpperCase() == 'MASTER')" class="btn btn-primary" (click)="confirm(modalConfirm, item.id, item.authority.toUpperCase())" [ngClass]="{'d-none': viewMode === 'grid'}">
                 Mudar Permissão
               </button>
             </p>

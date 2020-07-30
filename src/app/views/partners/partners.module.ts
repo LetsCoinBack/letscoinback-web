@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+
+import { TagInputModule } from 'ngx-chips';
 import { PartnersRoutingModule } from './partners-routing.module';
 import { PartnersComponent } from './partners/partners.component';
 import { RegisterPartnerComponent } from './register/register-partner.component';
@@ -21,7 +23,8 @@ import { SharedComponentsModule } from 'src/app/shared/components/shared.compone
     NgbModule,
     PartnersRoutingModule,
     TextMaskModule,
-    SharedComponentsModule
+    SharedComponentsModule,
+    TagInputModule
   ],
   declarations: [PartnersComponent, RegisterPartnerComponent]
 })

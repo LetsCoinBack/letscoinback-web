@@ -42,12 +42,6 @@
                         <label for="firstName">Posição Visualização</label>
                         <input type="text" class="form-control" formControlName="position" id="position">
                     </div>
-                    <div class="col-md-3 col-sm-4 form-group mb-3">  
-                        <label for="picker1">Segmento<i (click)="openModal(modalSegment)" class="i-Add addSegment mr-1"></i></label>
-                        <select formControlName="segment" class="dropdown segment">
-                            <option *ngFor="let obj of segments" [value]="obj.description">{{obj.description}}</option>
-                        </select>
-                    </div>
                     <div class="col-lg-3 col-md-4 col-sm-4 form-group mb-3">  
                         <label for="picker1">Provedor</label>
                         <select formControlName="provider" class="dropdown">
@@ -60,6 +54,15 @@
                             <option>Cashback</option>
                             <option>Cupom</option>
                         </select>
+                    </div>
+
+                    <div class="col-md-3 col-sm-4 form-group mb-3">  
+                        <label for="picker1">Segmentos</label>
+                        <tag-input formControlName="segments"
+                        theme='primary' placeholder="Selecione os segmentos">
+                            <tag-input-dropdown [focusFirstElement]="true" [autocompleteItems]="autocompletes$">
+                            </tag-input-dropdown>
+                      </tag-input> 
                     </div>
                     <div class="col-lg-2 col-md-3 col-sm-4">
                         <button style="float: left; margin-top: 25px;" class="btn btn-primary btn-rounded" >Salvar</button>
@@ -91,24 +94,6 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary btn-rounded m-1" (click)="setPhoto(url)">Alterar</button>
-    </div>
-  </ng-template>
-
-  <ng-template #modalSegment let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-title">Adicionar Segmento</h4>
-      <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click) ="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-        <div class="form-group">
-            <label for="name">Segmento</label>
-            <input ngbAutofocus id="name"  [(ngModel)]="newSegment"  class="form-control form-control-rounded" type="text">
-        </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-primary btn-rounded m-1" (click)="saveSegment(newSegment)">Salvar</button>
     </div>
   </ng-template>
 
