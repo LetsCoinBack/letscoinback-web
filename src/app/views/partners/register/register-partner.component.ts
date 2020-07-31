@@ -97,7 +97,7 @@ export class RegisterPartnerComponent implements OnInit{
       this.activeRouter.params.subscribe(v => {
         values = v;
       },e => {});
-      let str = values["segments"].indexOf(",") > 0 ? values["segments"].split(",") : [];
+      let str = values["segments"].indexOf(",") > 0 || values["segments"].length > 0 ? values["segments"].split(",") : [];
       return this.fb.group({
         id: [values["id"]],
         name: [values["name"], [Validators.required]],
