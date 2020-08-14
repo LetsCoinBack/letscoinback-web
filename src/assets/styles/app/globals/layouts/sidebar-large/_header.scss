@@ -54,9 +54,9 @@
         }
     
         .logo {
-            width: $sidebar-left-width;
+            width: 180px;
             img {
-                width: 60px;
+                width: auto;
                 height: 60px;
                 margin: 0 auto;
                 display: block;
@@ -167,7 +167,7 @@
             height: $topbar-height-mobile;
             padding: 0 1.5rem;
             .logo {
-                width: 60px;
+                width: auto;
             }
             .search-bar {
                 display: none;

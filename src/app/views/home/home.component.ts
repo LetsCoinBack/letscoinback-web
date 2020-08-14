@@ -7,4 +7,11 @@ import { SharedAnimations } from 'src/app/shared/animations/shared-animations';
     animations: [SharedAnimations]
 })
 export class HomeComponent {
+    
+    constructor(
+    ) { }
+
+    callModalRegister() {
+
+    }
 }
